@@ -1,0 +1,50 @@
+create or replace PROCEDURE EXPORT_FILE_P 
+(ALIAS IN VARCHAR2 , 
+FILE IN VARCHAR2 ) 
+IS 
+  v_file     UTL_FILE.file_type;
+  v_string   VARCHAR2 (4000);
+  v_alias VARCHAR2(25);
+   CURSOR c_new_transactions
+   IS
+      SELECT transaction_no,
+             transaction_date,
+             description,
+             account_no,
+             transaction_type,
+             transaction_amount
+        FROM new_transactions;
+BEGIN
+   -- v_alias :=UPPER(ALIAS);
+   v_file := UTL_FILE.fopen (UPPER(ALIAS),FILE||'.CSV','w',1000);
+
+ 
+
+   FOR rec IN c_new_transactions
+   LOOP
+      v_string :=
+            rec.transaction_no
+         || ','
+         ||rec.transaction_date
+         || ','
+         || rec.description
+         || ','
+         || rec.account_no
+         || ','
+         || rec.transaction_type
+         || ','
+         || rec.transaction_Amount;
+
+      UTL_FILE.put_line (v_file, v_string);
+
+   END LOOP;
+   UTL_FILE.fclose (v_file);
+
+EXCEPTION
+   WHEN OTHERS
+   THEN
+      IF UTL_FILE.is_open (v_file)
+      THEN
+         UTL_FILE.fclose (v_file);
+      END IF;
+END;

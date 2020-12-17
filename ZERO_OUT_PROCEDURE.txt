@@ -1,0 +1,28 @@
+create or replace PROCEDURE ZERO_OUT_P
+IS 
+
+ v_revenue account.account_type_code%type:='RE';
+ v_expenses account.account_type_code%type:='EX';
+ CURSOR cur_account IS 
+ select *
+ from account;
+ 
+
+BEGIN
+  FOR r_account IN cur_account LOOP
+    IF r_account.account_balance>0 then
+      IF r_account.account_type_code=v_revenue THEN
+         Insert into NEW_TRANSACTIONS
+         VALUES( WKIS_SEQ.nextval,sysdate,'ZeroOut Revenue Debit',r_account.account_no,'D',r_account.account_balance);
+         Insert into NEW_TRANSACTIONS
+         VALUES( WKIS_SEQ.nextval,sysdate,'ZeroOut Revenue Credit',5555,'C',r_account.account_balance);
+      END IF;
+      IF r_account.account_type_code=v_expenses THEN
+          Insert into NEW_TRANSACTIONS
+          VALUES( WKIS_SEQ.nextval,sysdate,'ZeroOut expenses debit',r_account.account_no,'D',r_account.account_balance);
+          Insert into NEW_TRANSACTIONS
+          VALUES( WKIS_SEQ.nextval,sysdate,'ZeroOut expenses Credit',5555,'C',r_account.account_balance);
+      END IF;
+    END IF;
+ END LOOP;
+END ZERO_OUT_P;

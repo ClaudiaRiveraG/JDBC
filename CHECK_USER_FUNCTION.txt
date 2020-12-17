@@ -1,0 +1,20 @@
+create or replace FUNCTION CHECK_USER_FUNC 
+(username in VARCHAR2)
+RETURN VARCHAR2 
+IS
+
+name VARCHAR2(25);
+
+BEGIN
+   SELECT  grantee
+   into name 
+   from user_tab_privs 
+   where privilege='EXECUTE' AND table_name='UTL_FILE' and grantee=username; 
+    
+   IF username = name then
+     return 'Y';
+    ELSE
+     return 'N';
+    END IF; 
+
+END CHECK_USER_FUNC;

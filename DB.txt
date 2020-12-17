@@ -1,0 +1,8 @@
+Update account set account_balance= 1000 where account_no=3058;
+Update account set account_balance= 200 where account_no=3073;
+Update account set account_balance= 2000 where account_no=4006;
+Update account set account_balance= 2020 where account_no=4045;
+Update account set account_balance= 300 where account_no=4078;
+BEGIN
+zero_out_p();
+END;

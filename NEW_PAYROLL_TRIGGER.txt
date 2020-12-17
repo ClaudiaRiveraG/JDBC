@@ -1,0 +1,14 @@
+create or replace TRIGGER NEW_PAYROLL_TRG 
+BEFORE INSERT ON payroll_load
+FOR EACH ROW 
+BEGIN
+  Insert into NEW_TRANSACTIONS
+  VALUES( WKIS_SEQ.nextval,:NEW.payroll_date,'Payment Employee payable account', 2050,'C',:NEW.Amount);
+   Insert into NEW_TRANSACTIONS
+  VALUES( WKIS_SEQ.currval,:NEW.payroll_date,'Payment Employee expese account', 4045,'D',:NEW.Amount);
+  :new.status:='G';
+EXCEPTION
+WHEN OTHERS THEN
+:new.status:='B';
+  
+END;
