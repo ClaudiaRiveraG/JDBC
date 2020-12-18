@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
- * GUI 
+ * GUI to test the operations
  * @author Claudia Rivera
  *
  */
