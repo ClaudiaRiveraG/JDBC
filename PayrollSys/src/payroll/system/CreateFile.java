@@ -51,7 +51,7 @@ public class CreateFile {
 
 			stream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -60,9 +60,7 @@ public class CreateFile {
 	public int setFile(String username, String password) {
 		System.out.println(username + " " + password);
 		String path = ctlFile.replace('/', '\\');
-		String cmd = "sqlldr userid=" + username + "/" + password + " control=" + path; // + "
-																						// log=C:\\\\CPRG307\\payroll.log
-																						// ";
+		String cmd = "sqlldr userid=" + username + "/" + password + " control=" + path; 
 		System.out.println(cmd);
 
 		int exitValue = 10;
@@ -79,10 +77,10 @@ public class CreateFile {
 			System.out.println("Test 4");
 			System.out.println("executed sqll");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return exitValue;

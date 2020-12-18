@@ -94,7 +94,7 @@ public class JDBCconnection {
 	}
 
 	public void createAlias(String dir, String alias) {
-		// String path= dir.replace('/', '\\');
+		
 		String sql = "CREATE OR REPLACE DIRECTORY " + alias + " AS " + "'" + dir + "'";
 		System.out.println(sql);
 		try {
@@ -138,7 +138,7 @@ public class JDBCconnection {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
